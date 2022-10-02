@@ -7,46 +7,62 @@ signal Paused
 signal Refocus
 
 #For section tracking
-var Options:bool = false setget set_options
-var Controls:bool = false setget set_controls
-var Languages:bool = false setget set_languages
-var Paused: bool = false setget set_paused
+var options:bool = false :
+  get:
+    return options # TODOConverter40 Non existent get function 
+  set(mod_value):
+    mod_value  # TODOConverter40 Copy here content of set_options
+var controls:bool = false :
+  get:
+    return controls # TODOConverter40 Non existent get function 
+  set(mod_value):
+    mod_value  # TODOConverter40 Copy here content of set_controls
+var languages:bool = false :
+  get:
+    return languages # TODOConverter40 Non existent get function 
+  set(mod_value):
+    mod_value  # TODOConverter40 Copy here content of set_languages
+var paused: bool = false :
+  get:
+    return paused # TODOConverter40 Non existent get function 
+  set(mod_value):
+    mod_value  # TODOConverter40 Copy here content of set_paused
 
 func set_options(value:bool)->void:
-	Options = value
-	emit_signal("Options", Options)
+  options = value
+  emit_signal("Options", options)
 
 func set_controls(value:bool)->void:
-	Controls = value
-	emit_signal("Controls", Controls)
+  controls = value
+  emit_signal("Controls", controls)
 
 func set_languages(value:bool)->void:
-	Languages = value
-	emit_signal("Languages", Languages)
+  languages = value
+  emit_signal("Languages", languages)
 
 func set_paused(value:bool)->void:
-	Paused = value
-	get_tree().paused = value
-	emit_signal("Paused", Paused)
+  paused = value
+  get_tree().paused = value
+  emit_signal("Paused", paused)
 
 func _ready()->void:
-	pause_mode = Node.PAUSE_MODE_PROCESS										#when pause menu allows reading inputs
+  process_mode = Node.PROCESS_MODE_ALWAYS										#when pause menu allows reading inputs
 
 func _input(event)->void:												#used to get back in menus
-	if event.is_action_pressed("ui_cancel"):
-		if Languages:
-			set_languages(false)
-		elif Controls:
-			# ignore back button when entering key
-			if !get_tree().get_nodes_in_group("KeyBinding")[0].visible:
-				set_controls(false)
-			else:
-				return
-		elif Options:
-			set_options(false)
-			if PauseMenu.can_show:
-				PauseMenu.show(true)
-		elif Paused:
-			PauseMenu.show(false)
-		elif PauseMenu.can_show:
-			PauseMenu.show(true)
+  if event.is_action_pressed("ui_cancel"):
+    if languages:
+      set_languages(false)
+    elif controls:
+      # ignore back button when entering key
+      if !get_tree().get_nodes_in_group("KeyBinding")[0].visible:
+        set_controls(false)
+      else:
+        return
+    elif options:
+      set_options(false)
+      if PauseMenu.can_show:
+        PauseMenu.show(true)
+    elif paused:
+      PauseMenu.show(false)
+    elif PauseMenu.can_show:
+      PauseMenu.show(true)

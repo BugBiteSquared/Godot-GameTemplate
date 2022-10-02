@@ -5,12 +5,12 @@ signal NewControl
 var NewEvent:InputEvent
 
 func _ready()->void:
-	popup_exclusive = true
+	exclusive = true
 	set_process_input(false)
-	connect("about_to_show", self, "receive_input")
-	connect("popup_hide", self, "receive_focus")
+	connect("about_to_popup",Callable(self,"receive_input"))
+	connect("popup_hide",Callable(self,"receive_focus"))
 	#Localization
-	SettingsLanguage.connect("ReTranslate", self, "retranslate")
+	SettingsLanguage.connect("ReTranslate",Callable(self,"retranslate"))
 	retranslate()
 
 func receive_input()->void:
@@ -32,4 +32,4 @@ func _input(event)->void:
 
 #Localization
 func retranslate()->void:
-	find_node("Message").text = tr("USE_NEW_CONTROLS")
+	find_child("Message").text = tr("USE_NEW_CONTROLS")

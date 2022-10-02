@@ -3,7 +3,7 @@ class_name ResourceAsyncLoader	#Godot 3.2.2
 #USE IT LIKE THIS
 #var loader = ResourceAsyncLoader.new()
 #var list = ["res://icon.png"]
-#var resources = yield(loader.load_start( list ), "completed")
+#var resources = await loader.load_start( list ).completed
 
 signal done
 
@@ -16,8 +16,8 @@ func load_start(resource_list:Array)->Array:
 	var resources_in = resource_list.duplicate()
 	var out: = []
 	if can_async:
-		thread.start(self, 'threaded_load', resources_in)
-		out = yield(self, "done")
+		thread.start(Callable(self,'threaded_load').bind(resources_in))
+		out = await self.done
 		thread.wait_to_finish()
 	else:
 		out = regular_load(resources_in)

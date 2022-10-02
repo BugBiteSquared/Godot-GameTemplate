@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://addons/GameTemplate/Assets/Fonts/pixellocale_16.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/GameTemplate/Assets/Fonts/pixellocale_16.tres" type="FontFile" id=1]
 
 
 [sub_resource type="GDScript" id=1]
@@ -10,7 +10,7 @@ func _ready()->void:
 	if OS.get_name() != \"HTML5\":
 		queue_free()
 		return
-	$CanvasLayer/Button.connect(\"pressed\", self, \"_on_Button_pressed\")
+	$CanvasLayer/Button.connect(\"pressed\",Callable(self,\"_on_Button_pressed\"))
 	$CanvasLayer/Panel.show()
 	$CanvasLayer/Button.show()
 

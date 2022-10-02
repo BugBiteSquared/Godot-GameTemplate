@@ -1,6 +1,6 @@
 extends Node2D
 
-export (String, FILE, "*.tscn") var Next_Scene: String
+@export (String, FILE, "*.tscn") var Next_Scene: String
 
 func _ready()->void:
 	Hud.visible = true
